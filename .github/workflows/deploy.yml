@@ -27,4 +27,13 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
-        
+
+  fallback:
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    steps:
+      - name: Add dummy artifact (fix upload-artifact@v3 error)
+        uses: actions/upload-artifact@v2
+        with:
+          name: dummy
+          path: README.md
